@@ -15,8 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Passport::routes();
-        /*Passport::routes(function ($router) {
+        //Passport::routes();
+        Passport::routes(function ($router) {
             $router->forAccessTokens();
             $router->forPersonalAccessTokens();
             $router->forTransientTokens();
@@ -24,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
 
         Passport::tokensExpireIn(Carbon::now()->addMinutes(10));
 
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(10));*/
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(10));
+        
     }
 
     /**
