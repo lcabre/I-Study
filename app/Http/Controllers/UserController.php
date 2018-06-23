@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     private $content;
 
-    public function apiRegistration(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             //'email' => 'required|email',
@@ -26,13 +26,11 @@ class UserController extends Controller
 
         $data = request()->only('email','password');
 
-        $user = User::create([
+        User::create([
             'name' => '',
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-
-        //$user = User::find(5);
 
         $client = Client::where('password_client', 1)->first();
 

@@ -27,4 +27,23 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function carreras(){
+        return $this->belongsToMany(Carrera::class, "usuario_carreras", "id_user", "id_carrera")
+            ->withTimestamps();
+    }
+
+    public function materias(){
+        return $this->belongsToMany(Materia::class, "usuario_materias", "id_user", "id_materia")
+            ->withPivot("datos")
+            ->withTimestamps();
+    }
+
+    public function parciales(){
+        return $this->hasMany(Parcial::class,"id_user");
+    }
+
+    public function recuperatorios(){
+        return $this->hasMany(Recuperatorio::class,"id_user");
+    }
 }
