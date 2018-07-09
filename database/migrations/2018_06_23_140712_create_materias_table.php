@@ -19,6 +19,7 @@ class CreateMateriasTable extends Migration
             $table->json("correlativas")->nullable();
             $table->integer('codigo');
             $table->string("nombre");
+            $table->string("imagen");
             $table->timestamps();
         });
     }

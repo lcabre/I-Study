@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Carrera;
+use App\Materia;
 use Auth;
 use Illuminate\Http\Request;
+use Storage;
 
 class CarreraController extends Controller
 {
@@ -30,6 +32,16 @@ class CarreraController extends Controller
             return $carreras;
     }
 
+    public function listaCarreras()
+    {
+        $carreras = Carrera::all();
+
+        if(!count($carreras))
+            return response()->json(null, 204);
+        else
+            return $carreras;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,8 +51,21 @@ class CarreraController extends Controller
     {
         $usuario = Auth::user();
         $carrera = Carrera::find($id_carrera);
-        $usuario->carreras()->attach($carrera);
-        $usuario->save();
+
+        if($carrera){
+
+            $usuario->carreras()->attach($carrera);
+
+            $materias = Materia::whereHas("carrera", function ($query) use ($id_carrera){
+                $query->where("id", $id_carrera);
+            })->pluck("id");
+
+            $usuario->materias()->attach($materias);
+
+            $usuario->save();
+
+        }else
+            return response()->json(null, 202);
 
         return response()->json(null, 204);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Materia;
+use Auth;
 use function foo\func;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,17 @@ class MateriaController extends Controller
      */
     public function index($id_carrera)
     {
+        $usuario = Auth::user();
+        //dd($usuario);
         $materias = Materia::whereHas("carrera", function ($query) use ($id_carrera){
             $query->where("id", $id_carrera);
+        })->whereHas("usuarios", function ($query) use ($usuario){
+            $query->where("id", $usuario->id);
         })->get();
+
+        foreach ($materias as $materia){
+            $materia->imagen = asset($materia->imagen);
+        }
 
         if(!count($materias))
             return response()->json(null, 204);

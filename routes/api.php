@@ -22,7 +22,8 @@ Route::post('register', 'UserController@register');
 
 Route::middleware(['auth:api'])->group(function () {
     Route::get('carreras/', 'CarreraController@index')->name('carreras.list');
+    Route::get('carreras/list', 'CarreraController@listaCarreras')->name('carreras.unlam.list');
     Route::get('carreras/{id_carrera}/join', 'CarreraController@join')->name('carreras.join');
-    Route::get('carreras/{id_carrera}/materias', 'MateriaController@join')->name('materias.list');
+    Route::get('carreras/{id_carrera}/materias', 'MateriaController@index')->name('materias.list');
 
 });
