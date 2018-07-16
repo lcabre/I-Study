@@ -58,12 +58,13 @@ class MateriaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Materia  $materia
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param Materia $materia
      */
-    public function show(Materia $materia)
+    public function show($id)
     {
-        //
+        return Materia::find($id);
     }
 
     /**

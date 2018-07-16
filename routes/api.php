@@ -25,5 +25,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('carreras/list', 'CarreraController@listaCarreras')->name('carreras.unlam.list');
     Route::get('carreras/{id_carrera}/join', 'CarreraController@join')->name('carreras.join');
     Route::get('carreras/{id_carrera}/materias', 'MateriaController@index')->name('materias.list');
+    Route::get('materias/{id_materia}', 'MateriaController@show')->name('materias.show');
 
 });
